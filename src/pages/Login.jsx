@@ -11,7 +11,7 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (userType === 'admin' && email === 'admin@example.com' && password === 'admin123') {
+    if (userType === 'admin' && ((email === 'admin@example.com' && password === 'admin123') || (email === 'admin@email.com' && password === '1234@'))) {
       navigate('/admin');
     } else if (userType === 'consumer' && email === 'consumer@example.com' && password === 'consumer123') {
       navigate('/consumer');

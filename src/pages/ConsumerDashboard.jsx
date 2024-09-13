@@ -1,8 +1,8 @@
 import { Routes, Route, Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import UploadMeterReading from '../components/consumer/UploadMeterReading';
-import ViewBills from '../components/consumer/ViewBills';
-import EditProfile from '../components/consumer/EditProfile';
+import UploadMeterReading from '@/components/consumer/UploadMeterReading';
+import ViewBills from '@/components/consumer/ViewBills';
+import EditProfile from '@/components/consumer/EditProfile';
 
 const ConsumerDashboard = () => {
   return (

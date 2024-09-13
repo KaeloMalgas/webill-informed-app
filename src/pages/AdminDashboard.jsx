@@ -1,8 +1,8 @@
 import { Routes, Route, Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import AddCustomer from '../components/admin/AddCustomer';
-import ListConsumers from '../components/admin/ListConsumers';
-import AddMeter from '../components/admin/AddMeter';
+import AddCustomer from '@/components/admin/AddCustomer';
+import ListConsumers from '@/components/admin/ListConsumers';
+import AddMeter from '@/components/admin/AddMeter';
 
 const AdminDashboard = () => {
   return (

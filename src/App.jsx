@@ -6,7 +6,6 @@ import AdminDashboard from './pages/AdminDashboard';
 import ConsumerDashboard from './pages/ConsumerDashboard';
 import Login from './pages/Login';
 import { ThemeProvider } from './components/ThemeProvider';
-import SettingsDropdown from './components/SettingsDropdown';
 
 const queryClient = new QueryClient();
 
@@ -17,7 +16,6 @@ const App = () => {
         <TooltipProvider>
           <Toaster />
           <Router>
-            <SettingsDropdown />
             <Routes>
               <Route path="/" element={<Navigate to="/login" replace />} />
               <Route path="/login" element={<Login />} />

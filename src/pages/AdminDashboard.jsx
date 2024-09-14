@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import { Home, Users, PlusCircle, FileText, Settings, User, BarChart } from 'lucide-react';
+import { Home, Users, FileText, Settings, User, BarChart } from 'lucide-react';
 import AddCustomer from '@/components/admin/AddCustomer';
 import ListConsumers from '@/components/admin/ListConsumers';
 import AddMeter from '@/components/admin/AddMeter';
@@ -44,13 +44,13 @@ const AdminDashboard = () => {
         <CardContent className="grid grid-cols-2 gap-4">
           <Link to="/admin/add-customer">
             <Button variant="outline" className="w-full justify-start">
-              <PlusCircle className="mr-2 h-4 w-4" />
+              <User className="mr-2 h-4 w-4" />
               Add Customer
             </Button>
           </Link>
           <Link to="/admin/add-meter">
             <Button variant="outline" className="w-full justify-start">
-              <PlusCircle className="mr-2 h-4 w-4" />
+              <Settings className="mr-2 h-4 w-4" />
               Add Meter
             </Button>
           </Link>
@@ -107,7 +107,7 @@ const AdminDashboard = () => {
               <li key={item.path}>
                 <Link
                   to={item.path}
-                  className={`flex flex-col items-center p-2 ${
+                  className={`flex flex-col items-center p-2 transition-colors duration-200 ${
                     location.pathname === item.path ? 'text-primary' : 'text-foreground hover:text-primary'
                   }`}
                 >

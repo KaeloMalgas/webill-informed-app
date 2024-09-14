@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Upload, FileText } from 'lucide-react';
+import { Upload, FileText, QrCode } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const HomePage = () => {
@@ -47,10 +47,12 @@ const HomePage = () => {
               View All Bills
             </Button>
           </Link>
+          <Button className="w-full justify-start">
+            <QrCode className="mr-2 h-4 w-4" />
+            Scan QR Code
+          </Button>
         </CardContent>
       </Card>
-
-      {/* Add more cards or sections for other important information */}
     </div>
   );
 };

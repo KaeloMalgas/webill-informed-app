@@ -1,18 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import { Sun, Moon, Upload, FileText, User, Palette, Plus } from 'lucide-react';
+import { Upload, FileText, User, QrCode } from 'lucide-react';
 import UploadMeterReading from '@/components/consumer/UploadMeterReading';
 import ViewBills from '@/components/consumer/ViewBills';
 import EditProfile from '@/components/consumer/EditProfile';
-import { useTheme } from '@/components/ThemeProvider';
-import ThemeCustomizer from '@/components/ThemeCustomizer';
 import HomePage from '@/components/consumer/HomePage';
 
 const ConsumerDashboard = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { theme, toggleTheme } = useTheme();
   const isMobile = window.innerWidth <= 768;
 
   const handleLogout = () => {
@@ -20,10 +17,9 @@ const ConsumerDashboard = () => {
   };
 
   const navItems = [
-    { path: '/consumer', icon: <Upload className="h-6 w-6" />, label: 'Upload Reading' },
-    { path: '/consumer/view-bills', icon: <FileText className="h-6 w-6" />, label: 'View Bills' },
-    { path: '/consumer/edit-profile', icon: <User className="h-6 w-6" />, label: 'Edit Profile' },
-    { path: '/consumer/customize-theme', icon: <Palette className="h-6 w-6" />, label: 'Customize Theme' },
+    { path: '/consumer/upload-reading', icon: <Upload className="h-6 w-6" />, label: 'Upload' },
+    { path: '/consumer/view-bills', icon: <FileText className="h-6 w-6" />, label: 'Bills' },
+    { path: '/consumer/edit-profile', icon: <User className="h-6 w-6" />, label: 'Profile' },
   ];
 
   return (
@@ -32,9 +28,6 @@ const ConsumerDashboard = () => {
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <span className="text-2xl font-bold text-primary">Consumer Dashboard</span>
           <div className="flex items-center">
-            <Button onClick={toggleTheme} variant="ghost" className="mr-2">
-              {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-            </Button>
             <Button onClick={handleLogout} variant="outline">Logout</Button>
           </div>
         </div>
@@ -47,7 +40,6 @@ const ConsumerDashboard = () => {
             <Route path="upload-reading" element={<UploadMeterReading />} />
             <Route path="view-bills" element={<ViewBills />} />
             <Route path="edit-profile" element={<EditProfile />} />
-            <Route path="customize-theme" element={<ThemeCustomizer />} />
           </Routes>
         </main>
       </div>
@@ -73,10 +65,10 @@ const ConsumerDashboard = () => {
       </nav>
 
       <Button
-        className="fixed bottom-4 right-4 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg"
+        className="fixed bottom-20 right-4 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg"
         size="icon"
       >
-        <Plus className="h-6 w-6" />
+        <QrCode className="h-6 w-6" />
       </Button>
     </div>
   );

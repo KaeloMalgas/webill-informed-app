@@ -5,6 +5,10 @@ import { Menu, X, Sun, Moon } from 'lucide-react';
 import AddCustomer from '@/components/admin/AddCustomer';
 import ListConsumers from '@/components/admin/ListConsumers';
 import AddMeter from '@/components/admin/AddMeter';
+import EditAdminProfile from '@/components/admin/EditAdminProfile';
+import EditConsumerProfile from '@/components/admin/EditConsumerProfile';
+import ManageMeters from '@/components/admin/ManageMeters';
+import GenerateBill from '@/components/admin/GenerateBill';
 import { useTheme } from '@/components/ThemeProvider';
 
 const AdminDashboard = () => {
@@ -14,6 +18,7 @@ const AdminDashboard = () => {
 
   const handleLogout = () => {
     // Implement logout logic here
+    // Clear session data
     navigate('/login');
   };
 
@@ -53,6 +58,9 @@ const AdminDashboard = () => {
               <li><Link to="/admin/add-customer" onClick={() => setIsNavOpen(false)}><Button variant="ghost" className="w-full justify-start text-orange-500 hover:text-white hover:bg-orange-600">Add Customer</Button></Link></li>
               <li><Link to="/admin/list-consumers" onClick={() => setIsNavOpen(false)}><Button variant="ghost" className="w-full justify-start text-orange-500 hover:text-white hover:bg-orange-600">List Consumers</Button></Link></li>
               <li><Link to="/admin/add-meter" onClick={() => setIsNavOpen(false)}><Button variant="ghost" className="w-full justify-start text-orange-500 hover:text-white hover:bg-orange-600">Add Meter</Button></Link></li>
+              <li><Link to="/admin/edit-profile" onClick={() => setIsNavOpen(false)}><Button variant="ghost" className="w-full justify-start text-orange-500 hover:text-white hover:bg-orange-600">Edit Profile</Button></Link></li>
+              <li><Link to="/admin/manage-meters" onClick={() => setIsNavOpen(false)}><Button variant="ghost" className="w-full justify-start text-orange-500 hover:text-white hover:bg-orange-600">Manage Meters</Button></Link></li>
+              <li><Link to="/admin/generate-bill" onClick={() => setIsNavOpen(false)}><Button variant="ghost" className="w-full justify-start text-orange-500 hover:text-white hover:bg-orange-600">Generate Bill</Button></Link></li>
             </ul>
           </nav>
         </aside>
@@ -61,6 +69,10 @@ const AdminDashboard = () => {
             <Route path="add-customer" element={<AddCustomer />} />
             <Route path="list-consumers" element={<ListConsumers />} />
             <Route path="add-meter" element={<AddMeter />} />
+            <Route path="edit-profile" element={<EditAdminProfile />} />
+            <Route path="edit-consumer/:id" element={<EditConsumerProfile />} />
+            <Route path="manage-meters" element={<ManageMeters />} />
+            <Route path="generate-bill" element={<GenerateBill />} />
           </Routes>
         </main>
       </div>

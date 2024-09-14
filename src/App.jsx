@@ -5,23 +5,26 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import AdminDashboard from './pages/AdminDashboard';
 import ConsumerDashboard from './pages/ConsumerDashboard';
 import Login from './pages/Login';
+import { ThemeProvider } from './components/ThemeProvider';
 
 const queryClient = new QueryClient();
 
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Router>
-          <Routes>
-            <Route path="/" element={<Navigate to="/login" replace />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/admin/*" element={<AdminDashboard />} />
-            <Route path="/consumer/*" element={<ConsumerDashboard />} />
-          </Routes>
-        </Router>
-      </TooltipProvider>
+      <ThemeProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Router>
+            <Routes>
+              <Route path="/" element={<Navigate to="/login" replace />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/admin/*" element={<AdminDashboard />} />
+              <Route path="/consumer/*" element={<ConsumerDashboard />} />
+            </Routes>
+          </Router>
+        </TooltipProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 };

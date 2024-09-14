@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { calculateContrast, adjustTextColor } from '@/utils/colorUtils';
 
 const ThemeContext = createContext();
 
@@ -24,6 +25,12 @@ export const ThemeProvider = ({ children }) => {
       Object.entries(customTheme).forEach(([key, value]) => {
         root.style.setProperty(`--${key}`, value);
       });
+      
+      // Adjust text color based on background brightness
+      const bgColor = customTheme.background || (theme === 'light' ? '#FFFFFF' : '#000000');
+      const textColor = adjustTextColor(bgColor);
+      root.style.setProperty('--foreground', textColor);
+
       localStorage.setItem('customTheme', JSON.stringify(customTheme));
     } else {
       root.removeAttribute('style');
@@ -35,7 +42,9 @@ export const ThemeProvider = ({ children }) => {
   };
 
   const updateCustomTheme = (newTheme) => {
-    setCustomTheme(newTheme);
+    const adjustedTheme = { ...newTheme };
+    adjustedTheme.foreground = adjustTextColor(newTheme.background);
+    setCustomTheme(adjustedTheme);
   };
 
   return (

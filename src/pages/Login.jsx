@@ -13,7 +13,7 @@ const Login = () => {
     e.preventDefault();
     if (userType === 'admin' && ((email === 'admin@example.com' && password === 'admin123') || (email === 'admin@email.com' && password === '1234@'))) {
       navigate('/admin');
-    } else if (userType === 'consumer' && email === 'consumer@example.com' && password === 'consumer123') {
+    } else if (userType === 'consumer' && ((email === 'consumer@example.com' && password === 'consumer123') || (email === '1@email.com' && password === '12345'))) {
       navigate('/consumer');
     } else {
       alert('Invalid credentials');

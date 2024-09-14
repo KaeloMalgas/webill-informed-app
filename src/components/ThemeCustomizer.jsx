@@ -3,6 +3,7 @@ import { useTheme } from './ThemeProvider';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { calculateContrast } from '@/utils/colorUtils';
 
 const ThemeCustomizer = () => {
   const { customTheme, updateCustomTheme } = useTheme();
@@ -10,27 +11,31 @@ const ThemeCustomizer = () => {
     primary: '#FF4500',
     secondary: '#000000',
     background: '#FFFFFF',
-    text: '#000000',
     accent: '#FF4500',
   });
 
   const handleColorChange = (e) => {
-    setTempTheme({ ...tempTheme, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setTempTheme(prev => ({ ...prev, [name]: value }));
   };
 
   const applyTheme = () => {
+    if (calculateContrast(tempTheme.background, tempTheme.primary) < 4.5) {
+      alert("The contrast between the background and primary color is too low. Please choose colors with higher contrast for better readability.");
+      return;
+    }
     updateCustomTheme(tempTheme);
   };
 
   const resetTheme = () => {
-    updateCustomTheme(null);
-    setTempTheme({
+    const defaultTheme = {
       primary: '#FF4500',
       secondary: '#000000',
       background: '#FFFFFF',
-      text: '#000000',
       accent: '#FF4500',
-    });
+    };
+    setTempTheme(defaultTheme);
+    updateCustomTheme(defaultTheme);
   };
 
   return (

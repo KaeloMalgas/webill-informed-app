@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import { Upload, FileText, User, QrCode } from 'lucide-react';
+import { Home, Upload, FileText, User, QrCode } from 'lucide-react';
 import UploadMeterReading from '@/components/consumer/UploadMeterReading';
 import ViewBills from '@/components/consumer/ViewBills';
 import EditProfile from '@/components/consumer/EditProfile';
@@ -17,6 +17,7 @@ const ConsumerDashboard = () => {
   };
 
   const navItems = [
+    { path: '/consumer', icon: <Home className="h-6 w-6" />, label: 'Home' },
     { path: '/consumer/upload-reading', icon: <Upload className="h-6 w-6" />, label: 'Upload' },
     { path: '/consumer/view-bills', icon: <FileText className="h-6 w-6" />, label: 'Bills' },
     { path: '/consumer/edit-profile', icon: <User className="h-6 w-6" />, label: 'Profile' },
@@ -63,13 +64,6 @@ const ConsumerDashboard = () => {
           </ul>
         </div>
       </nav>
-
-      <Button
-        className="fixed bottom-20 right-4 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg"
-        size="icon"
-      >
-        <QrCode className="h-6 w-6" />
-      </Button>
     </div>
   );
 };

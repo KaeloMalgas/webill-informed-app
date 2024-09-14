@@ -21,13 +21,13 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="p-6 bg-white rounded shadow-md w-96">
-        <h1 className="text-2xl font-bold mb-4">Login</h1>
+    <div className="flex items-center justify-center min-h-screen bg-background">
+      <div className="p-6 bg-secondary rounded shadow-md w-96">
+        <h1 className="text-2xl font-bold mb-4 text-primary">Login</h1>
         <form onSubmit={handleLogin}>
           <div className="mb-4">
             <select
-              className="w-full p-2 border rounded"
+              className="w-full p-2 border rounded bg-background text-foreground"
               value={userType}
               onChange={(e) => setUserType(e.target.value)}
             >
@@ -42,6 +42,7 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              className="bg-background text-foreground"
             />
           </div>
           <div className="mb-4">
@@ -51,9 +52,10 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              className="bg-background text-foreground"
             />
           </div>
-          <Button type="submit" className="w-full">Login</Button>
+          <Button type="submit" className="w-full bg-primary text-primary-foreground hover:bg-primary/90">Login</Button>
         </form>
       </div>
     </div>

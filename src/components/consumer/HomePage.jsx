@@ -47,10 +47,12 @@ const HomePage = () => {
               View All Bills
             </Button>
           </Link>
-          <Button className="w-full justify-start">
-            <QrCode className="mr-2 h-4 w-4" />
-            Scan QR Code
-          </Button>
+          <Link to="/consumer/qr-scanner">
+            <Button variant="outline" className="w-full justify-start">
+              <QrCode className="mr-2 h-4 w-4" />
+              Scan QR Code
+            </Button>
+          </Link>
         </CardContent>
       </Card>
     </div>

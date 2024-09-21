@@ -1,3 +1,13 @@
+import React from 'react';
+import { Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
+import { Button } from "@/components/ui/button";
+import { Home, Upload, FileText, User, QrCode } from 'lucide-react';
+import HomePage from '@/components/consumer/HomePage';
+import UploadMeterReading from '@/components/consumer/UploadMeterReading';
+import ViewBills from '@/components/consumer/ViewBills';
+import EditProfile from '@/components/consumer/EditProfile';
+import QrScanner from '@/components/consumer/ConsumerQRScanner';
+
 const ConsumerDashboard = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -12,7 +22,7 @@ const ConsumerDashboard = () => {
     { path: '/consumer/upload-reading', icon: <Upload className="h-6 w-6" />, label: 'Upload' },
     { path: '/consumer/view-bills', icon: <FileText className="h-6 w-6" />, label: 'Bills' },
     { path: '/consumer/edit-profile', icon: <User className="h-6 w-6" />, label: 'Profile' },
-    { path: '/consumer/qr-scanner', icon: <QrCode className="h-6 w-6" />, label: 'Scan QR' }, // New QR scanner link
+    { path: '/consumer/qr-scanner', icon: <QrCode className="h-6 w-6" />, label: 'Scan QR' },
   ];
 
   return (
@@ -33,7 +43,7 @@ const ConsumerDashboard = () => {
             <Route path="upload-reading" element={<UploadMeterReading />} />
             <Route path="view-bills" element={<ViewBills />} />
             <Route path="edit-profile" element={<EditProfile />} />
-            <Route path="qr-scanner" element={<QrScanner onScan={(data) => console.log(data)} />} /> {/* QR Scanner route */}
+            <Route path="qr-scanner" element={<QrScanner />} />
           </Routes>
         </main>
       </div>

@@ -1,30 +1,27 @@
 import React, { useState } from 'react';
-import { QrReader } from 'react-qr-reader';
+import QrScanner from 'react-qr-scanner';
 import axios from 'axios';
 
 const ConsumerQRScanner = () => {
-  const [qrData, setQrData] = useState(null); // Store the QR code result
+  const [qrData, setQrData] = useState(null);
   const [error, setError] = useState(null);
-  const [apiResponse, setApiResponse] = useState(null); // Store the API response
+  const [apiResponse, setApiResponse] = useState(null);
 
-  // This function is triggered when a QR code is successfully scanned
   const handleScan = (result) => {
     if (result) {
-      setQrData(result); // Store the scanned QR data
-      fetchMeterData(result); // Call the API with the scanned data
+      setQrData(result.text);
+      fetchMeterData(result.text);
     }
   };
 
-  // This function is triggered if there is an error in QR scanning
   const handleError = (error) => {
     setError(`Error scanning QR code: ${error}`);
   };
 
-  // Function to fetch meter details from the server using the scanned QR code
   const fetchMeterData = async (qrCode) => {
     try {
-      const response = await axios.post('/api/meter/verify', { qrCode }); // Call your API endpoint
-      setApiResponse(response.data); // Store the API response
+      const response = await axios.post('/api/meter/verify', { qrCode });
+      setApiResponse(response.data);
     } catch (err) {
       setError(`Error fetching data from API: ${err.response?.data?.message || err.message}`);
     }
@@ -34,21 +31,13 @@ const ConsumerQRScanner = () => {
     <div className="qr-scanner-container">
       <h1>Scan Your Electricity Meter QR Code</h1>
       
-      {/* QR Reader component */}
-      <QrReader
+      <QrScanner
         delay={300}
-        onResult={(result, error) => {
-          if (!!result) {
-            handleScan(result.text); // Call the handleScan function if a QR code is found
-          }
-          if (!!error) {
-            handleError(error); // Handle any error
-          }
-        }}
+        onError={handleError}
+        onScan={handleScan}
         style={{ width: '100%' }}
       />
 
-      {/* Display the scanned QR data */}
       {qrData && (
         <div className="qr-result">
           <h3>Scanned QR Data:</h3>
@@ -56,7 +45,6 @@ const ConsumerQRScanner = () => {
         </div>
       )}
 
-      {/* Display the API response */}
       {apiResponse && (
         <div className="api-response">
           <h3>Meter Information:</h3>
@@ -64,7 +52,6 @@ const ConsumerQRScanner = () => {
         </div>
       )}
 
-      {/* Display any error messages */}
       {error && (
         <div className="error">
           <p>{error}</p>

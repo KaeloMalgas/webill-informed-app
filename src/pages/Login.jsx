@@ -76,6 +76,18 @@ const Login = () => {
           <Button type="submit" className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
             Login
           </Button>
+
+          {userType === 'consumer' && (
+            <div className="mt-4 text-center">
+              <Button
+                variant="link"
+                onClick={() => navigate('/signup')}
+                type="button"
+              >
+                Don't have an account? Sign up
+              </Button>
+            </div>
+          )}
         </form>
       </div>
     </div>

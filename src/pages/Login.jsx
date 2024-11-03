@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Auth } from 'aws-amplify';
+import { Auth } from '@aws-amplify/auth';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";

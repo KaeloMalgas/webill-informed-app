@@ -2,14 +2,17 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { withAuthenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
 import AdminDashboard from './pages/AdminDashboard';
 import ConsumerDashboard from './pages/ConsumerDashboard';
 import Login from './pages/Login';
 import { ThemeProvider } from './components/ThemeProvider';
+import './aws-config';
 
 const queryClient = new QueryClient();
 
-const App = () => {
+const App = ({ signOut, user }) => {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
@@ -29,4 +32,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default withAuthenticator(App);

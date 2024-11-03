@@ -1,45 +1,37 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Auth } from 'aws-amplify';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
+import { useState } from 'react';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [userType, setUserType] = useState('admin');
-  const [errorMessage, setErrorMessage] = useState(''); // To display error messages
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-
-    // Reset the error message on each login attempt
-    setErrorMessage('');
-
-    // Admin login
-    if (userType === 'admin') {
-      if (
-        (email === 'admin@example.com' && password === 'admin123') ||
-        (email === 'admin@email.com' && password === '1234@')
-      ) {
-        navigate('/admin');
+    
+    try {
+      const user = await Auth.signIn(email, password);
+      
+      // Check user group/type from Cognito attributes
+      const userGroups = user.signInUserSession.accessToken.payload['cognito:groups'] || [];
+      const isAdmin = userGroups.includes('admin');
+      
+      if (userType === 'admin' && !isAdmin) {
+        toast.error('You do not have admin privileges');
         return;
       }
+      
+      // Navigate based on user type
+      navigate(userType === 'admin' ? '/admin' : '/consumer');
+      
+    } catch (error) {
+      toast.error(error.message || 'Login failed');
     }
-
-    // Consumer login
-    if (userType === 'consumer') {
-      if (
-        (email === 'consumer@example.com' && password === 'consumer123') ||
-        (email === '1@email.com' && password === '12345')
-      ) {
-        navigate('/consumer');
-        return;
-      }
-    }
-
-    // If credentials are invalid
-    setErrorMessage('Invalid email or password');
   };
 
   return (
@@ -48,7 +40,6 @@ const Login = () => {
         <h1 className="text-2xl font-bold mb-4 text-primary">Login</h1>
         
         <form onSubmit={handleLogin}>
-          {/* User Type Dropdown */}
           <div className="mb-4">
             <select
               className="w-full p-2 border rounded bg-background text-foreground"
@@ -60,7 +51,6 @@ const Login = () => {
             </select>
           </div>
 
-          {/* Email Input */}
           <div className="mb-4">
             <Input
               type="email"
@@ -72,7 +62,6 @@ const Login = () => {
             />
           </div>
 
-          {/* Password Input */}
           <div className="mb-4">
             <Input
               type="password"
@@ -84,12 +73,6 @@ const Login = () => {
             />
           </div>
 
-          {/* Error Message */}
-          {errorMessage && (
-            <div className="text-red-500 text-sm mb-4">{errorMessage}</div>
-          )}
-
-          {/* Login Button */}
           <Button type="submit" className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
             Login
           </Button>

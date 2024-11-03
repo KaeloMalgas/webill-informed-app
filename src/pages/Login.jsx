@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Auth } from '@aws-amplify/auth';
+import { signIn } from '@aws-amplify/auth';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
@@ -15,7 +15,7 @@ const Login = () => {
     e.preventDefault();
     
     try {
-      const user = await Auth.signIn(email, password);
+      const user = await signIn({ username: email, password });
       
       // Check user group/type from Cognito attributes
       const userGroups = user.signInUserSession.accessToken.payload['cognito:groups'] || [];

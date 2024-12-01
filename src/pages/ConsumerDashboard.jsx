@@ -1,12 +1,13 @@
 import React from 'react';
 import { Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import { Home, Upload, FileText, User, QrCode } from 'lucide-react';
+import { Home, Upload, FileText, User, QrCode, LogOut } from 'lucide-react';
 import HomePage from '@/components/consumer/HomePage';
 import UploadMeterReading from '@/components/consumer/UploadMeterReading';
 import ViewBills from '@/components/consumer/ViewBills';
 import EditProfile from '@/components/consumer/EditProfile';
 import QrScanner from '@/components/consumer/ConsumerQRScanner';
+import { toast } from "sonner";
 
 const ConsumerDashboard = () => {
   const navigate = useNavigate();
@@ -14,49 +15,64 @@ const ConsumerDashboard = () => {
   const isMobile = window.innerWidth <= 768;
 
   const handleLogout = () => {
+    toast.success("Logged out successfully");
     navigate('/login');
   };
 
   const navItems = [
-    { path: '/consumer', icon: <Home className="h-6 w-6" />, label: 'Home' },
-    { path: '/consumer/upload-reading', icon: <Upload className="h-6 w-6" />, label: 'Upload' },
-    { path: '/consumer/view-bills', icon: <FileText className="h-6 w-6" />, label: 'Bills' },
-    { path: '/consumer/edit-profile', icon: <User className="h-6 w-6" />, label: 'Profile' },
-    { path: '/consumer/qr-scanner', icon: <QrCode className="h-6 w-6" />, label: 'Scan QR' },
+    { path: '/consumer', icon: <Home className="h-5 w-5" />, label: 'Home' },
+    { path: '/consumer/upload-reading', icon: <Upload className="h-5 w-5" />, label: 'Upload' },
+    { path: '/consumer/view-bills', icon: <FileText className="h-5 w-5" />, label: 'Bills' },
+    { path: '/consumer/edit-profile', icon: <User className="h-5 w-5" />, label: 'Profile' },
+    { path: '/consumer/qr-scanner', icon: <QrCode className="h-5 w-5" />, label: 'Scan QR' },
   ];
 
   return (
-    <div className="flex flex-col h-screen bg-background text-foreground">
-      <nav className="bg-secondary shadow-md p-4">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <span className="text-2xl font-bold text-primary">Consumer Dashboard</span>
-          <div className="flex items-center">
-            <Button onClick={handleLogout} variant="outline">Logout</Button>
+    <div className="flex flex-col h-screen bg-background">
+      {/* Header */}
+      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container flex h-14 items-center">
+          <div className="mr-4 flex">
+            <Link to="/consumer" className="mr-6 flex items-center space-x-2">
+              <span className="hidden font-bold sm:inline-block">Consumer Dashboard</span>
+            </Link>
+          </div>
+          <div className="flex flex-1 items-center justify-end space-x-2">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={handleLogout}
+              className="h-9 w-9"
+            >
+              <LogOut className="h-5 w-5" />
+            </Button>
           </div>
         </div>
-      </nav>
+      </header>
 
-      <div className="flex-1 overflow-auto">
-        <main className="max-w-7xl mx-auto p-4">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="upload-reading" element={<UploadMeterReading />} />
-            <Route path="view-bills" element={<ViewBills />} />
-            <Route path="edit-profile" element={<EditProfile />} />
-            <Route path="qr-scanner" element={<QrScanner />} />
-          </Routes>
-        </main>
-      </div>
+      {/* Main Content */}
+      <main className="flex-1 container py-6 md:py-8">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="upload-reading" element={<UploadMeterReading />} />
+          <Route path="view-bills" element={<ViewBills />} />
+          <Route path="edit-profile" element={<EditProfile />} />
+          <Route path="qr-scanner" element={<QrScanner />} />
+        </Routes>
+      </main>
 
-      <nav className={`bg-secondary shadow-md ${isMobile ? 'fixed bottom-0 left-0 right-0' : 'hidden md:block'}`}>
-        <div className="max-w-7xl mx-auto px-4">
-          <ul className={`flex ${isMobile ? 'justify-around' : 'justify-center'} py-2`}>
+      {/* Navigation */}
+      <nav className={`border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 ${isMobile ? 'fixed bottom-0 left-0 right-0' : 'hidden md:block'}`}>
+        <div className="container">
+          <ul className="flex justify-around items-center py-2">
             {navItems.map((item) => (
               <li key={item.path}>
                 <Link
                   to={item.path}
-                  className={`flex flex-col items-center p-2 ${
-                    location.pathname === item.path ? 'text-primary' : 'text-foreground hover:text-primary'
+                  className={`flex flex-col items-center p-2 rounded-md transition-colors ${
+                    location.pathname === item.path 
+                      ? 'text-primary' 
+                      : 'text-muted-foreground hover:text-primary'
                   }`}
                 >
                   {item.icon}

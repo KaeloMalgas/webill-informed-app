@@ -7,7 +7,6 @@ import '@aws-amplify/ui-react/styles.css';
 import AdminDashboard from './pages/AdminDashboard';
 import ConsumerDashboard from './pages/ConsumerDashboard';
 import Login from './pages/Login';
-import ConsumerSignup from './components/consumer/ConsumerSignup';
 import { ThemeProvider } from './components/ThemeProvider';
 import './aws-config';
 
@@ -21,9 +20,8 @@ const App = ({ signOut, user }) => {
           <Toaster />
           <Router>
             <Routes>
-              <Route path="/" element={<Navigate to="/login" replace />} />
+              <Route path="/" element={<Navigate to="/consumer" replace />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<ConsumerSignup />} />
               <Route path="/admin/*" element={<AdminDashboard />} />
               <Route path="/consumer/*" element={<ConsumerDashboard />} />
             </Routes>

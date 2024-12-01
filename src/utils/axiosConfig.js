@@ -26,8 +26,11 @@ instance.interceptors.request.use(
 // Add a response interceptor
 instance.interceptors.response.use(
   (response) => {
-    // Clone the response data before returning it
-    return { ...response, data: JSON.parse(JSON.stringify(response.data)) };
+    // Create a deep copy of the response data to prevent stream reading issues
+    return {
+      ...response,
+      data: response.data ? structuredClone(response.data) : null
+    };
   },
   (error) => {
     if (error.response) {

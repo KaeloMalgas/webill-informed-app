@@ -23,18 +23,35 @@ instance.interceptors.request.use(
   }
 );
 
-// Add a response interceptor
+// Add a response interceptor with improved stream handling
 instance.interceptors.response.use(
   (response) => {
-    // Create a deep copy of the response data to prevent stream reading issues
-    return {
-      ...response,
-      data: response.data ? structuredClone(response.data) : null
-    };
+    // Only clone the response data if it exists and hasn't been read
+    if (response.data) {
+      try {
+        // Store the cloned data to prevent multiple reads
+        const clonedData = JSON.parse(JSON.stringify(response.data));
+        return {
+          ...response,
+          data: clonedData
+        };
+      } catch (error) {
+        console.error('Error cloning response data:', error);
+        return response;
+      }
+    }
+    return response;
   },
   (error) => {
     if (error.response) {
       console.error('Response error:', error.response.data);
+      // Clone error response data to prevent stream reading issues
+      try {
+        const clonedErrorData = JSON.parse(JSON.stringify(error.response.data));
+        error.response.data = clonedErrorData;
+      } catch (e) {
+        console.error('Error cloning error response data:', e);
+      }
     } else if (error.request) {
       console.error('Request error:', error.request);
     } else {
